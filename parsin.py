@@ -91,9 +91,18 @@ if __name__ == '__main__':
         # inline calculations
         l = re.sub(r'<(.*?)>', calculate, l)
 
+        # fill in variables
+        variables = re.search(r'(?P<variable>@[a-zA-Z0-9_]+)'+
+                r'\s+(?P<value>-?\d+\.?\d*|<.+= (?P<exprvalue>[0-9. ]+)>)', l)
+        if variables:
+            exprvalue = variables.group('exprvalue')
+            value = variables.group('value') if not exprvalue else exprvalue
+            VARS[variables.group('variable')] = float(value)
+
         # get potential numerical info from the line
         # TODO this won't do with calculations
         nums = grab_numbers(l)                
         if nums: NUMS.append(nums[-1])
 
         print l
+    #print VARS
