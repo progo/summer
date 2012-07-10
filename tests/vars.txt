@@ -1,15 +1,8 @@
 variable testing.
 
 
-let     @price 128 $
-        @item  20.5 $
-        @off   -5 $
-        @foo   -5.12 $
-        @novar foo 40
+let     @price 120 $
+        @item  20 $
 
-        @calcd <100-50 = 50>
+        <@price - 2*@item = 80>
 
-        <@calcd * 2 = 100>
-        <@price - @item = 107.5>
-
-        <@sum = 435.88>
