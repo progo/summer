@@ -97,7 +97,7 @@ if __name__ == '__main__':
         if variables:
             exprvalue = variables.group('exprvalue')
             value = variables.group('value') if not exprvalue else exprvalue
-            VARS[variables.group('variable')] = float(value)
+            VARS[variables.group('variable')] = value
 
         # get potential numerical info from the line
         # TODO this won't do with calculations
