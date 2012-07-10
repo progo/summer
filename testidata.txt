@@ -1,0 +1,16 @@
+asunnon arvokas irtaimisto
+
+hifit                       3000 €
+penkit                      <6*250 = 1500> €
+jako kahteen                <2000/4 = 500.0> €
+
+kaikki yhteensä             <@sum = 5000.0> €
+puoliksi                    <@sum/2 = 2500.0> €
+vakuutusyhtiö korvaa        <@sum * 0.85 -150 = 4100.0> €
+
+balls                       <650 + 50 = 700> <2*5 = 10>
+
+
+; vim:
+; :map <C-c><C-c> :0,$!./parsin.py<CR>
+; :match Number /\v\<.+\>/
