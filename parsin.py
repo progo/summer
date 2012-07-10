@@ -35,6 +35,8 @@ def grab_numbers(s):
             pass
     return l
 
+# TODO format_output and process_commands could do refactoring (==remove if
+# neccessary)
 def format_output(comstr, value):
     """Decide the string output of commands."""
 
@@ -54,8 +56,10 @@ def process_commands(string, bare = False):
     return string
 
 def substitute_variables(string):
-    """substitute :variables with their numeric counterparts."""
-    return string #TODO
+    """substitute @variables with their numeric counterparts."""
+    for var in VARS.keys():
+        string = string.replace(var, VARS[var])
+    return string
 
 def calculate(match):
     """do calculations inside <>s"""
@@ -64,8 +68,9 @@ def calculate(match):
     # remove stuff from RHS of =
     query = re.sub(r' =.*$', '', query)
 
-    # replace commands here.
+    # substitute commands and variables here.
     processed = process_commands(query, bare=True)
+    processed = substitute_variables(processed)
 
     # eval
     ans = eval_expr(processed)
