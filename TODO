@@ -1,0 +1,7 @@
+TODO
+
+
+- Make sure you can define more than one variable in a line.
+- Multiple evals and definitions in one line
+- Lousy Python needs to be refactored and made in a library.
+- Vim ft plugin
