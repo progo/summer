@@ -24,6 +24,10 @@ So, what can you do?
         <@sum = 960.0>
         <@avg = 192.0>
 
+USAGE: oh, at the moment just run parsin.py with either file or standard input.
+In Vim you can use :0,$!./parsin.py to run the file and the results right
+before your eyes.
+
 BUGS AND ISSUES: see TODO (and the source :)
 
 The greatest limitation at the point is my initial design so that only the last
