@@ -24,9 +24,18 @@ So, what can you do?
         <@sum = 960.0>
         <@avg = 192.0>
 
-USAGE: oh, at the moment just run parsin.py with either file or standard input.
-In Vim you can use :0,$!./parsin.py to run the file and the results right
-before your eyes.
+
+INSTALLATION: Copy the stuff from `vim-sumitup/` to your `.vim`. Pathogen is
+recommended! Set the path to your copy of 'parsin.py' in `.vimrc` in
+the variable `g:sumitup_parser`.  Now you can set any buffer's filetype to
+"sumitup". Alternatively edit a ".sum" ended file and Vim will apply the
+filetype to it.
+
+USAGE: Normal mode mapping <C-c><C-c> is provided to re-evaluate the whole
+file.
+
+TIPS: For zsh:
+    alias Calc='vim `tempfile -pcalc- -s.sum`'
 
 BUGS AND ISSUES: see TODO (and the source :)
 
