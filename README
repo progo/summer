@@ -34,7 +34,7 @@ filetype to it.
 USAGE: Normal mode mapping <C-c><C-c> is provided to re-evaluate the whole
 file.
 
-TIPS: For zsh:
+TIPS: For bash and zsh:
     alias Calc='vim `tempfile -pcalc- -s.sum`'
 
 BUGS AND ISSUES: see TODO (and the source :)
