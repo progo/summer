@@ -6,6 +6,7 @@ import re
 from eval_expr import eval_expr
 
 COMMENTCHAR = ';'
+DONT_ACC = '--'
 
 # possible variables defined
 VARS = {}
@@ -104,9 +105,10 @@ if __name__ == '__main__':
             value = variables.group('value') if not exprvalue else exprvalue
             VARS[variables.group('variable')] = value
 
-        # get potential numerical info from the line
-        # TODO this won't do with calculations
-        nums = grab_numbers(l)                
-        if nums: NUMS.append(nums[-1])
+        # Get potential numerical info from the line, but skip lines with
+        # DONT_ACC at the beginning or end.
+        if not (l.strip().startswith(DONT_ACC) or l.strip().endswith(DONT_ACC)):
+            nums = grab_numbers(l)
+            if nums: NUMS.append(nums[-1])
 
         print l
