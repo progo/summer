@@ -2,11 +2,10 @@
 
 syn match Identifier /\v\@\w+/
 syn region Statement start="<" end=">" contains=Identifier
+
 syn match Comment /\v^\s*;.*$/
 
-" match the last number on the line so the user knows what's included in
-" accumulation.
-syn match Number /\v<[0-9.]+(\D*$)@=/
-
-" match the result the same way? hmm...
-
+" Match every number
+syn match Number /\v[0-9. -]/
+" ... except when NoACC is on. And keep <>s highlit.
+syn match Normal /\v(^\s*--.*$|^.*--\s*$)/ contains=Statement

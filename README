@@ -23,6 +23,9 @@ So, what can you do?
 - Use the predefined variables well:
         <@sum = 960.0>
         <@avg = 192.0>
+- Comment lines with ; so that the variables don't define.
+- Mark lines with -- (as the first or the last thing) to keep numbers from
+  accumulating in @sum.
 
 
 INSTALLATION: Copy the stuff from `vim-sumitup/` to your `.vim`. Pathogen is
@@ -31,15 +34,19 @@ the variable `g:sumitup_parser`.  Now you can set any buffer's filetype to
 "sumitup". Alternatively edit a ".sum" ended file and Vim will apply the
 filetype to it.
 
-USAGE: Normal mode mapping <C-c><C-c> is provided to re-evaluate the whole
-file.
+USAGE: Three key bindings are provided:
+    <Localleader>e   to re-evaluate the buffer.
+    <Localleader>c   to toggle the current line commented or not.
+    <Localleader>a   to toggle the accumulate mark on the current line.
+
+    I'm not sure what the default for <Localleader> is, so you can make sure
+    it's something sensible by setting up maplocalleader = ',' in your .vimrc:
+
+        let maplocalleader = ','
 
 TIPS: For bash and zsh:
     alias Calc='vim `tempfile -pcalc- -s.sum`'
 
 BUGS AND ISSUES: see TODO (and the source :)
 
-The greatest limitation at the point is my initial design so that only the last
-number in the line will accumulate the @sum. If there is a calculation, it will
-get accumulated but I'm not sure about how it handles multiple calculations in
-a line.
+
