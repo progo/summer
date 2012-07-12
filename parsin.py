@@ -110,4 +110,3 @@ if __name__ == '__main__':
         if nums: NUMS.append(nums[-1])
 
         print l
-    #print VARS
