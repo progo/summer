@@ -22,7 +22,7 @@ def grab_numbers(s):
 
     # check if there are calculations here. TODO this won't collect nums
     # without =. This is a hack anyhow.
-    evaledcalcs = re.search(r'<.+= ([0-9. ]+)>', s)
+    evaledcalcs = re.search(r'<.+= (-?[0-9. ]+)>', s)
     if evaledcalcs and not "@sum" in s:
         return [float(evaledcalcs.group(1))]
 
