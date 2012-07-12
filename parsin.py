@@ -20,16 +20,16 @@ COMS = [("@sum", lambda: sum(NUMS)),
 
 def grab_numbers(s):
     """Collect numbers in a string, return as a list."""
-
-    # check if there are calculations here. TODO this won't collect nums
-    # without =. This is a hack anyhow.
-    evaledcalcs = re.search(r'<.+= (-?[0-9. ]+)>', s)
-    if evaledcalcs and not "@sum" in s:
-        return [float(evaledcalcs.group(1))]
-
-    # else we proceed with the usual
     l = []
-    for t in s.split():
+
+    # Collect eval results from <>s
+    evaled_calcs = re.findall(r'<.+?= (-?[0-9\. ]+?)>', s)
+
+    # remove <>s from s
+    s = re.sub(r'<.+?>', '', s)
+
+    # with the remaining data we proceed the usual way
+    for t in evaled_calcs + s.split():
         try:
             l.append(float(t))
         except ValueError:
@@ -109,6 +109,7 @@ if __name__ == '__main__':
         # DONT_ACC at the beginning or end.
         if not (l.strip().startswith(DONT_ACC) or l.strip().endswith(DONT_ACC)):
             nums = grab_numbers(l)
-            if nums: NUMS.append(nums[-1])
+            for n in nums:
+                NUMS.append(n)
 
         print l
