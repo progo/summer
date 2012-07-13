@@ -4,3 +4,6 @@ TODO
 - Make sure you can define more than one variable in a line.
 - Multiple evals and definitions in one line
 - Lousy Python needs to be refactored and made in a library.
+- column sum to answer some issues:
+    - when collecting numbers save the column #
+    - @csum will sum up those numbers in the right column.

@@ -36,19 +36,9 @@ def grab_numbers(s):
             pass
     return l
 
-# TODO format_output and process_commands could do refactoring (==remove if
-# neccessary)
-def format_output(comstr, value):
-    """Decide the string output of commands."""
-
-    # get rid of .0 decimal points
-    if int(value) == value: value = int(value)
-
-    return "{0}<{1}>".format(comstr, value)
-
-def process_commands(string, bare = False):
+def process_commands(string):
     """Search-replace @commands in a string, return replaced."""
-    formatterfn = format_output if not bare else lambda com, fn: str(fn)
+    formatterfn = lambda com, fn: str(fn)
 
     # Parse for potential @commands
     for com, fun in COMS:
@@ -70,7 +60,7 @@ def calculate(match):
     query = re.sub(r' =.*$', '', query)
 
     # substitute commands and variables here.
-    processed = process_commands(query, bare=True)
+    processed = process_commands(query)
     processed = substitute_variables(processed)
 
     # eval
@@ -91,8 +81,6 @@ if __name__ == '__main__':
         if l.lstrip().startswith(COMMENTCHAR):
             print l
             continue
-
-        #l = process_commands(l)
 
         # inline calculations
         l = re.sub(r'<(.*?)>', calculate, l)
