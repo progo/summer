@@ -67,9 +67,9 @@ def calculate(match):
     ans = eval_expr(processed)
 
     if query == str(ans):
-        return "<{0}>".format(ans)
+        return "<{0:g}>".format(ans)
     else:
-        return "<{0} = {1}>".format(query, ans)
+        return "<{0} = {1:g}>".format(query, ans)
 
 if __name__ == '__main__':
     """Run the program for stdin or file input. Output to stdout."""
