@@ -26,7 +26,8 @@ So, what can you do?
 - Comment lines with ; so that the variables don't define.
 - Mark lines with -- (as the first or the last thing) to keep numbers from
   accumulating in @sum.
-
+- NOTE: only the last plain number on the line will get accumulated. If there
+  are no plain numbers, last evaluated result gets accumulated.
 
 INSTALLATION: Copy the stuff from `vim-sumitup/` to your `.vim`. Pathogen is
 recommended! Set the path to your copy of 'parsin.py' in `.vimrc` in

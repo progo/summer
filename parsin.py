@@ -97,7 +97,6 @@ if __name__ == '__main__':
         # DONT_ACC at the beginning or end.
         if not (l.strip().startswith(DONT_ACC) or l.strip().endswith(DONT_ACC)):
             nums = grab_numbers(l)
-            for n in nums:
-                NUMS.append(n)
+            if nums: NUMS.append(nums[-1])
 
         print l
