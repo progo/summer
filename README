@@ -1,15 +1,15 @@
-SumItUp
--------
+Summer
+------
 
 Ever wanted to do in a quick list of numbers, maybe having a bit of annotation
 here and there? Big spreadsheets are way too big to be comfy and they won't
 even support vi keys! And the great little sc might be too little for our
 purposes.
 
-Enter SumItUp (wanted: a better name), a Vim plugin with a bit of arithmetic
-functionality that allows you to write your notes in natural languages and
-SumItUp picks up the numerical bits. I actually wanted to just use the
-nice-looking Soulver but it's for Mac only. Hence, SumItUp.
+Enter Summer, a Vim plugin with a bit of arithmetic functionality that allows
+you to write your notes in natural languages and Summer picks up the numerical
+bits. I actually wanted to just use the nice-looking Soulver but it's for Mac
+only. Hence, Summer.
 
 So, what can you do?
 
@@ -29,11 +29,10 @@ So, what can you do?
 - NOTE: only the last plain number on the line will get accumulated. If there
   are no plain numbers, last evaluated result gets accumulated.
 
-INSTALLATION: Copy the stuff from `vim-sumitup/` to your `.vim`. Pathogen is
-recommended! Set the path to your copy of 'parsin.py' in `.vimrc` in
-the variable `g:sumitup_parser`.  Now you can set any buffer's filetype to
-"sumitup". Alternatively edit a ".sum" ended file and Vim will apply the
-filetype to it.
+INSTALLATION: Copy the stuff from `vim-summer/` to your `~/.vim/`. Pathogen is
+recommended! Set the path to your copy of 'summer.py' in `.vimrc` in the
+variable `g:summer_parser`.  Now you can set any buffer's filetype to "summer".
+Alternatively edit a ".sum" ended file and Vim will apply the filetype to it.
 
 USAGE: Three key bindings are provided:
     <Localleader>e   to re-evaluate the buffer.
@@ -49,5 +48,4 @@ TIPS: For bash and zsh:
     alias Calc='vim `tempfile -pcalc- -s.sum`'
 
 BUGS AND ISSUES: see TODO (and the source :)
-
 

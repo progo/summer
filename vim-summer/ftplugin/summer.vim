@@ -1,16 +1,16 @@
 " SumItUp for vim
-setlocal syntax=sumitup
+setlocal syntax=summer
 
-if !exists("g:sumitup_parser")
-    echom "Set up g:sumitup_parser in your .vimrc"
-    let g:sumitup_parser = "./parsin.py"
+if !exists("g:summer_parser")
+    echom "Set up g:summer_parser in your .vimrc"
+    let g:summer_parser = "./summer.py"
 endif
 
 " Call the script workhorse and replace the whole buffer with new info.
 " Yes, inefficient.
 func SIUNaiveUpdate()
     let curpos = getpos(".")
-    exe "0,$!".g:sumitup_parser
+    exe "0,$!".g:summer_parser
     call setpos(".", curpos)
 endf
 

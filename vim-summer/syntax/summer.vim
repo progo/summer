@@ -1,4 +1,4 @@
-" Syntax highlighting for SumItUp
+" Syntax highlighting for Summer
 
 syn match Identifier /\v\@\w+/
 syn region Statement start="<" end=">" contains=Identifier
