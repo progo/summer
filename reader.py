@@ -10,11 +10,13 @@ COMMENTCHAR = ';'
 DONT_ACC = '--'
 
 class Summer():
-    # possible variables defined
-    VARS = {}
 
-    # numerical values parsed
-    NUMS = []
+    def __init__(self):
+        # possible variables defined
+        self.VARS = {}
+
+        # numerical values parsed
+        self.NUMS = []
 
     # commands. This needs a tough refactoring.
     COMS = [("@sum", lambda self: sum(self.NUMS))]
