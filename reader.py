@@ -12,6 +12,11 @@ DONT_ACC = '--'
 
 class Summer():
 
+    def do_sum(self, arg):
+        if not arg:
+            return sum(x.val for x in self.NUMS)
+        return sum(x.val for x in self.NUMS if x.type == arg)
+
     def __init__(self):
         # possible variables defined
         self.VARS = {}
@@ -19,18 +24,22 @@ class Summer():
         # numerical values parsed. This is of type Number.
         self.NUMS = []
 
-    # commands. This needs a tough refactoring.
-    COMS = [("@sum", lambda self: sum(x.val for x in self.NUMS))]
+        # commands. This needs a tough refactoring.
+        self.COMS = {"sum": self.do_sum}
 
     def process_commands(self, string):
-        """Search-replace @commands in a string, return replaced."""
-        formatterfn = lambda com, fn: str(fn)
+        """Search-replace @commands in a string, return replaced. Commands can
+        have arguments. The syntax comes: `@com[:args]`. """
 
-        # Parse for potential @commands
-        for com, fun in self.COMS:
-            if com in string:
-                # fun() now an instance method :/
-                string = string.replace(com, formatterfn(com, fun(self)))
+        def do_func_eval(m):
+            """fetch the function from COMS and call it."""
+            if m.group('func') not in self.COMS:
+                return '@'+m.group('func')
+            return str(self.COMS[m.group('func')](m.group('arg')))
+
+        string = re.sub(r'@(?P<func>[a-zA-Z]+)(?::(?P<arg>[a-zA-Z_]+))?',
+                do_func_eval, string)
+
         return string
 
     def substitute_variables(self, string):

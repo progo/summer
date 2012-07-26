@@ -22,12 +22,14 @@ So, what can you do?
         <@var + @foo = 330>
 - Use the predefined variables well:
         <@sum = 960.0>
-        <@avg = 192.0>
 - Comment lines with ; so that the variables don't define.
 - Mark lines with -- (as the first or the last thing) to keep numbers from
   accumulating in @sum.
-- NOTE: only the last plain number on the line will get accumulated. If there
-  are no plain numbers, last evaluated result gets accumulated.
+- Use words after numbers to mark their types. Use <@sum:type> to accumulate
+  per type. For instance:
+        4 balls
+        6 towels
+        <@sum:balls = 4>
 
 INSTALLATION: Copy the stuff from `vim-summer/` to your `~/.vim/`. Pathogen is
 recommended! Set the path to your copy of 'summer.py' in `.vimrc` in the

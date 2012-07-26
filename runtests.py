@@ -39,7 +39,15 @@ class TestBasics(unittest.TestCase):
 
     def test_typed_sums(self):
         """test summing of numbers of specific type."""
-        pass
+        s = Summer()
+        def ae(input, output):
+            self.assertEqual(s.readline(input), output)
+        s.readline("10 balls")
+        s.readline("5 bikes")
+        s.readline("5 balls")
+        ae("<@sum:balls>", "<@sum:balls = 15>")
+        ae("<@sum:bikes>", "<@sum:bikes = 5>")
+        ae("<@sum:balls + @sum:bikes>", "<@sum:balls + @sum:bikes = 20>")
 
 
 # some helpful tests for 'nums'. Should be removed after we're finished because
