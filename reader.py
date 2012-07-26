@@ -5,6 +5,7 @@ The reader class Summer is the powerhouse to all of this.
 import re
 
 from eval_expr import eval_expr
+from nums import Number, grab_numbers
 
 COMMENTCHAR = ';'
 DONT_ACC = '--'
@@ -20,24 +21,6 @@ class Summer():
 
     # commands. This needs a tough refactoring.
     COMS = [("@sum", lambda self: sum(self.NUMS))]
-
-    def grab_numbers(self, s):
-        """Collect numbers in a string, return as a list."""
-        l = []
-
-        # Collect eval results from <>s
-        evaled_calcs = re.findall(r'<.+?= (-?[0-9\. ]+?)>', s)
-
-        # remove <>s from s
-        s = re.sub(r'<.+?>', '', s)
-
-        # with the remaining data we proceed the usual way
-        for t in evaled_calcs + s.split():
-            try:
-                l.append(float(t))
-            except ValueError:
-                pass
-        return l
 
     def process_commands(self, string):
         """Search-replace @commands in a string, return replaced."""
@@ -100,7 +83,7 @@ class Summer():
         # DONT_ACC at the beginning or end.
         if not (line.strip().startswith(DONT_ACC) or
                 line.strip().endswith(DONT_ACC)):
-            nums = self.grab_numbers(line)
+            nums = [x.val for x in grab_numbers(line)]
             if nums: self.NUMS.append(nums[-1])
 
         return line
