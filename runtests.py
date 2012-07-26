@@ -9,7 +9,9 @@ class TestBasics(unittest.TestCase):
         summer.readline("hello 10 nums or 20 not.\n")
         summer.readline("again 2 nums but not -54.345e")
 
-    def test_summing(self):
+    def test_basic_summing(self):
+        """in these tests we're concerned only with the last numbers in each
+        line."""
         s = Summer()
         s.readline("i've got 99 problems")
         s.readline("but summer ain't 1 of them.")
@@ -35,10 +37,13 @@ class TestBasics(unittest.TestCase):
         ae("<@tires>", "<@tires = 600>")
         ae("<@car+@tires>", "<@car+@tires = 5200>")
 
+    def test_typed_sums(self):
+        """test summing of numbers of specific type."""
+        pass
 
 
-# some helpful tests. Should be removed after we're finished because they're
-# not black box tests.
+# some helpful tests for 'nums'. Should be removed after we're finished because
+# they're not black box tests.
 from nums import Number, grab_numbers
 class TestNums(unittest.TestCase):
     def test_number_grabbing(self):

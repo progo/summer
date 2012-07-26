@@ -16,11 +16,11 @@ class Summer():
         # possible variables defined
         self.VARS = {}
 
-        # numerical values parsed
+        # numerical values parsed. This is of type Number.
         self.NUMS = []
 
     # commands. This needs a tough refactoring.
-    COMS = [("@sum", lambda self: sum(self.NUMS))]
+    COMS = [("@sum", lambda self: sum(x.val for x in self.NUMS))]
 
     def process_commands(self, string):
         """Search-replace @commands in a string, return replaced."""
@@ -79,11 +79,9 @@ class Summer():
             value = variables.group('value') if not exprvalue else exprvalue
             self.VARS[variables.group('variable')] = value
 
-        # Get potential numerical info from the line, but skip lines with
-        # DONT_ACC at the beginning or end.
+        # Get potential numerical info from the line
         if not (line.strip().startswith(DONT_ACC) or
                 line.strip().endswith(DONT_ACC)):
-            nums = [x.val for x in grab_numbers(line)]
-            if nums: self.NUMS.append(nums[-1])
+            self.NUMS.extend(grab_numbers(line))
 
         return line
