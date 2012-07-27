@@ -5,7 +5,7 @@ The reader class Summer is the powerhouse to all of this.
 import re
 
 from eval_expr import eval_expr
-from nums import Number, grab_numbers
+import nums
 
 COMMENTCHAR = ';'
 DONT_ACC = '--'
@@ -80,8 +80,12 @@ class Summer():
 
         # fill in variables
         variables = re.search(
+                # variable name
                 r'(?P<variable>@[a-zA-Z0-9_]+)'+
-                r'\s+(?P<value>-?\d+\.?\d*|<.+= (?P<exprvalue>[0-9. ]+)>)',
+                # plain value
+                r'\s+(?P<value>' + nums.NUMREGEX + r'|' +
+                # expression result
+                r'<.+= (?P<exprvalue>'+ nums.NUMREGEX + r')>)',
                 line)
         if variables:
             exprvalue = variables.group('exprvalue')
@@ -91,6 +95,6 @@ class Summer():
         # Get potential numerical info from the line
         if not (line.strip().startswith(DONT_ACC) or
                 line.strip().endswith(DONT_ACC)):
-            self.NUMS.extend(grab_numbers(line))
+            self.NUMS.extend(nums.grab_numbers(line))
 
         return line

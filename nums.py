@@ -5,6 +5,8 @@ Define number types and provide operations for them.
 import re
 from collections import namedtuple
 
+# the regex to match all numbers
+NUMREGEX = r'-?\d+\.?\d*(?:[Ee][-+]?\d+)?'
 
 Number = namedtuple("Number", "val type")
 
@@ -13,9 +15,9 @@ def grab_numbers(s):
     # Collect numbers with a hairy regex.
     evaled_calcs = re.findall(
             # evaluation results
-            r'(?:<.+?= (?P<exprval>-?[0-9\. ]+?)>' + 
+            r'(?:<.+?= (?P<exprval>' + NUMREGEX + r')>' +
             # match free standing numbers
-            r'|\s*(?P<numval>-?[0-9\. ]+?)(?:\D|\Z))' +
+            r'|(?P<numval>' + NUMREGEX + r')\b)' +
             # with the possible type
             r'\s*(?P<type>[a-zA-Z_]+)?', s)
     nums = []
@@ -29,4 +31,3 @@ def grab_numbers(s):
         except ValueError:
             pass
     return nums
-

@@ -34,8 +34,10 @@ class TestBasics(unittest.TestCase):
             self.assertEqual(s.readline(input), output)
         s.readline("@car 4600 $")
         s.readline("@tires <4*150> $")
+        s.readline("@tkt 2.5e10")
         ae("<@tires>", "<@tires = 600>")
         ae("<@car+@tires>", "<@car+@tires = 5200>")
+        ae("<@tkt>", "<@tkt = 2.5e+10>") #not very solid
 
     def test_typed_sums(self):
         """test summing of numbers of specific type."""
@@ -67,6 +69,12 @@ class TestNums(unittest.TestCase):
                 [Number(val=12.0, type='op')])
         self.assertEqual(grab_numbers("<12*4 = 48> eur"),
                 [Number(val=48.0, type='eur')])
+
+    def test_floats(self):
+        """floating point numbers are tough."""
+        self.assertEqual(grab_numbers("1.5"),
+                [Number(val=1.5, type='')])
+        self.assertEqual(len(grab_numbers("1.4 2.4 0.3 4")), 4)
 
 if __name__ == '__main__':
     unittest.main()
