@@ -67,6 +67,12 @@ class Summer():
         else:
             return "<{0} = {1:g}>".format(query, ans)
 
+    def does_the_line_accumulate(self, line):
+        """Determine if the given line's values should accumulate towards
+        sums."""
+        return (line.strip().startswith(DONT_ACC) or
+                line.strip().endswith(DONT_ACC))
+
     def readline(self, line):
         """Read line of input and return the possible modified line back."""
         line = line.rstrip('\n')
@@ -93,8 +99,7 @@ class Summer():
             self.VARS[variables.group('variable')] = value
 
         # Get potential numerical info from the line
-        if not (line.strip().startswith(DONT_ACC) or
-                line.strip().endswith(DONT_ACC)):
+        if not self.does_the_line_accumulate(line):
             self.NUMS.extend(nums.grab_numbers(line))
 
         return line
