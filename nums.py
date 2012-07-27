@@ -5,15 +5,8 @@ Define number types and provide operations for them.
 import re
 from collections import namedtuple
 
+
 Number = namedtuple("Number", "val type")
-
-def sum_all(numbers):
-    """Given a list of Numbers, sum all of them."""
-    return sum(n.val for n in numbers)
-
-def sum_column(numbers, column):
-    """Sum all numbers located in the column."""
-    return sum(n.val for n in numbers if col == column)
 
 def grab_numbers(s):
     """Parse the given string and return a list of Numbers."""
