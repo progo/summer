@@ -46,3 +46,8 @@ def grab_vars(s):
     """Parse the given string and return introduced variables as a dict."""
     nums, vars = __analyze(s)
     return vars
+
+def grab_numbers_and_vars(s):
+    """Parse the given string and return a tuple of a list of collected numbers
+    and introduced variables as a dict."""
+    return __analyze(s)

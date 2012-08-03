@@ -85,9 +85,9 @@ class Summer():
         line = re.sub(r'<(.*?)>', self.calculate, line)
 
         # Get potential numerical info from the line
+        nums_, vars_ = nums.grab_numbers_and_vars(line)
         if not self.does_the_line_accumulate(line):
-            self.NUMS.extend(nums.grab_numbers(line))
-
-        self.VARS.update(nums.grab_vars(line))
+            self.NUMS.extend(nums_)
+        self.VARS.update(vars_)
 
         return line
