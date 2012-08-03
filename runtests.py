@@ -50,6 +50,24 @@ class TestBasics(SummerTestCase):
                 "<@sum:balls + @sum:bikes = 20>")
 
 
+class TestMultievals(SummerTestCase):
+    """test multiple evals and defs in a line."""
+
+    def test_multiple_evals(self):
+        """test plain sums"""
+        self.s.readline("10 balls 15 bikes 4 euros")
+        self.assert_input("<@sum:balls>", "<@sum:balls = 10>")
+        self.assert_input("<@sum:bikes>", "<@sum:bikes = 15>")
+        self.assert_input("<@sum:euros>", "<@sum:euros = 4>")
+
+    def test_multiple_defs(self):
+        self.s.readline("@balls 10 @dogs 3")
+        self.assert_input("<@balls+@dogs>","<@balls+@dogs = 13>")
+        #self.s.readline("@foo 10 @bar <@foo*3>")
+        #self.assert_input("<@bar>", "<@bar = 30>")
+
+
+
 # some helpful tests for 'nums'. Should be removed after we're finished because
 # they're not black box tests.
 from nums import Number, grab_numbers

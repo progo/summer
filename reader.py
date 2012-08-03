@@ -84,22 +84,10 @@ class Summer():
         # inline calculations
         line = re.sub(r'<(.*?)>', self.calculate, line)
 
-        # fill in variables
-        variables = re.search(
-                # variable name
-                r'(?P<variable>@[a-zA-Z0-9_]+)'+
-                # plain value
-                r'\s+(?P<value>' + nums.NUMREGEX + r'|' +
-                # expression result
-                r'<.+= (?P<exprvalue>'+ nums.NUMREGEX + r')>)',
-                line)
-        if variables:
-            exprvalue = variables.group('exprvalue')
-            value = variables.group('value') if not exprvalue else exprvalue
-            self.VARS[variables.group('variable')] = value
-
         # Get potential numerical info from the line
         if not self.does_the_line_accumulate(line):
             self.NUMS.extend(nums.grab_numbers(line))
+
+        self.VARS.update(nums.grab_vars(line))
 
         return line
