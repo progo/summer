@@ -3,53 +3,51 @@ import unittest
 
 from reader import Summer
 
-class TestBasics(unittest.TestCase):
+
+class SummerTestCase(unittest.TestCase):
+    def setUp(self):
+        self.s = Summer()
+    def assert_input(self, input, output):
+        result = self.s.readline(input)
+        self.assertEqual(result, output)
+
+class TestBasics(SummerTestCase):
     def test_runthru(self):
-        summer = Summer()
-        summer.readline("hello 10 nums or 20 not.\n")
-        summer.readline("again 2 nums but not -54.345e")
+        self.s.readline("hello 10 nums or 20 not.\n")
+        self.s.readline("again 2 nums but not -54.345e")
 
     def test_basic_summing(self):
-        """in these tests we're concerned only with the last numbers in each
-        line."""
-        s = Summer()
-        s.readline("i've got 99 problems")
-        s.readline("but summer ain't 1 of them.")
-        self.assertEqual(s.readline("<@sum>--"), "<@sum = 100>--")
-        s.readline("reduce -20")
-        self.assertEqual(s.readline("<@sum>--"), "<@sum = 80>--")
+        """basic summing"""
+        self.assert_input("<@sum>", "<@sum = 0>")
+        self.s.readline("i've got 99 problems")
+        self.s.readline("but summer ain't 1 of them.")
+        self.assert_input("<@sum>--",  "<@sum = 100>--")
+        self.s.readline("reduce -20")
+        self.assert_input("<@sum>--",  "<@sum = 80>--")
 
     def test_arithmetics(self):
-        s = Summer()
-        def ae(input, output):
-            self.assertEqual(s.readline(input), output)
-        ae("<10/5>", "<10/5 = 2>")
-        ae("<123+7>", "<123+7 = 130>")
-        ae("<9*4>", "<9*4 = 36>")
-        ae("<(100/3)*9>", "<(100/3)*9 = 300>")
+        self.assert_input("<10/5>", "<10/5 = 2>")
+        self.assert_input("<123+7>", "<123+7 = 130>")
+        self.assert_input("<9*4>", "<9*4 = 36>")
+        self.assert_input("<(100/3)*9>", "<(100/3)*9 = 300>")
 
     def test_variables(self):
-        s = Summer()
-        def ae(input, output):
-            self.assertEqual(s.readline(input), output)
-        s.readline("@car 4600 $")
-        s.readline("@tires <4*150> $")
-        s.readline("@tkt 2.5e10")
-        ae("<@tires>", "<@tires = 600>")
-        ae("<@car+@tires>", "<@car+@tires = 5200>")
-        ae("<@tkt>", "<@tkt = 2.5e+10>") #not very solid
+        self.s.readline("@car 4600 $")
+        self.s.readline("@tires <4*150> $")
+        self.s.readline("@tkt 2.5e10")
+        self.assert_input("<@tires>", "<@tires = 600>")
+        self.assert_input("<@car+@tires>", "<@car+@tires = 5200>")
+        self.assert_input("<@tkt>", "<@tkt = 2.5e+10>") #not very solid
 
     def test_typed_sums(self):
         """test summing of numbers of specific type."""
-        s = Summer()
-        def ae(input, output):
-            self.assertEqual(s.readline(input), output)
-        s.readline("10 balls")
-        s.readline("5 bikes")
-        s.readline("5 balls")
-        ae("<@sum:balls>", "<@sum:balls = 15>")
-        ae("<@sum:bikes>", "<@sum:bikes = 5>")
-        ae("<@sum:balls + @sum:bikes>", "<@sum:balls + @sum:bikes = 20>")
+        self.s.readline("10 balls")
+        self.s.readline("5 bikes")
+        self.s.readline("5 balls")
+        self.assert_input("<@sum:balls>", "<@sum:balls = 15>")
+        self.assert_input("<@sum:bikes>", "<@sum:bikes = 5>")
+        self.assert_input("<@sum:balls + @sum:bikes>",
+                "<@sum:balls + @sum:bikes = 20>")
 
 
 # some helpful tests for 'nums'. Should be removed after we're finished because
