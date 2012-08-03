@@ -3,6 +3,10 @@ TODO
 
 - Make sure you can define more than one variable in a line.
 - Multiple evals and definitions in one line
+
+
+NOT GONNA DO
+
 - column sum to answer some issues:
     - when collecting numbers save the column #
     - @csum will sum up those numbers in the right column.
