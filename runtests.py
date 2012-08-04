@@ -10,6 +10,9 @@ class SummerTestCase(unittest.TestCase):
     def assert_input(self, input, output):
         result = self.s.readline(input)
         self.assertEqual(result, output)
+    def ensure_input(self, input):
+        result = self.s.readline(input)
+        self.assertEqual(result, input)
 
 class TestBasics(SummerTestCase):
     def test_runthru(self):
@@ -18,36 +21,35 @@ class TestBasics(SummerTestCase):
 
     def test_basic_summing(self):
         """basic summing"""
-        self.assert_input("<@sum>", "<@sum = 0>")
+        self.ensure_input("<@sum = 0>")
         self.s.readline("i've got 99 problems")
         self.s.readline("but summer ain't 1 of them.")
-        self.assert_input("<@sum>--",  "<@sum = 100>--")
+        self.ensure_input( "<@sum = 100>--")
         self.s.readline("reduce -20")
-        self.assert_input("<@sum>--",  "<@sum = 80>--")
+        self.ensure_input( "<@sum = 80>--")
 
     def test_arithmetics(self):
-        self.assert_input("<10/5>", "<10/5 = 2>")
-        self.assert_input("<123+7>", "<123+7 = 130>")
-        self.assert_input("<9*4>", "<9*4 = 36>")
-        self.assert_input("<(100/3)*9>", "<(100/3)*9 = 300>")
+        self.ensure_input("<10/5 = 2>")
+        self.ensure_input("<123+7 = 130>")
+        self.ensure_input("<9*4 = 36>")
+        self.ensure_input("<(100/3)*9 = 300>")
 
     def test_variables(self):
         self.s.readline("@car 4600 $")
         self.s.readline("@tires <4*150> $")
         self.s.readline("@tkt 2.5e10")
-        self.assert_input("<@tires>", "<@tires = 600>")
-        self.assert_input("<@car+@tires>", "<@car+@tires = 5200>")
-        self.assert_input("<@tkt>", "<@tkt = 2.5e+10>") #not very solid
+        self.ensure_input("<@tires = 600>")
+        self.ensure_input("<@car+@tires = 5200>")
+        self.ensure_input("<@tkt = 2.5e+10>") #not very solid
 
     def test_typed_sums(self):
         """test summing of numbers of specific type."""
         self.s.readline("10 balls")
         self.s.readline("5 bikes")
         self.s.readline("5 balls")
-        self.assert_input("<@sum:balls>", "<@sum:balls = 15>")
-        self.assert_input("<@sum:bikes>", "<@sum:bikes = 5>")
-        self.assert_input("<@sum:balls + @sum:bikes>",
-                "<@sum:balls + @sum:bikes = 20>")
+        self.ensure_input("<@sum:balls = 15>")
+        self.ensure_input("<@sum:bikes = 5>")
+        self.ensure_input("<@sum:balls + @sum:bikes = 20>")
 
 
 class TestMultievals(SummerTestCase):
@@ -56,15 +58,17 @@ class TestMultievals(SummerTestCase):
     def test_multiple_evals(self):
         """test plain sums"""
         self.s.readline("10 balls 15 bikes 4 euros")
-        self.assert_input("<@sum:balls>", "<@sum:balls = 10>")
-        self.assert_input("<@sum:bikes>", "<@sum:bikes = 15>")
-        self.assert_input("<@sum:euros>", "<@sum:euros = 4>")
+        self.ensure_input("<@sum:balls = 10>")
+        self.ensure_input("<@sum:bikes = 15>")
+        self.ensure_input("<@sum:euros = 4>")
 
     def test_multiple_defs(self):
         self.s.readline("@balls 10 @dogs 3")
-        self.assert_input("<@balls+@dogs>","<@balls+@dogs = 13>")
-        #self.s.readline("@foo 10 @bar <@foo*3>")
-        #self.assert_input("<@bar>", "<@bar = 30>")
+        self.ensure_input("<@balls+@dogs = 13>")
+
+    #def test_refs_within_line(self):
+    #    self.s.readline("@foo 10 @bar <@foo*3>")
+    #    self.ensure_input("<@bar = 30>")
 
 
 
