@@ -39,6 +39,7 @@ class TestBasics(SummerTestCase):
         self.s.readline("@tires <4*150> $")
         self.s.readline("@tkt 2.5e10")
         self.ensure_input("<@tires = 600>")
+        self.assert_input("<@tires>", "<@tires = 600>")
         self.ensure_input("<@car+@tires = 5200>")
         self.ensure_input("<@tkt = 2.5e+10>") #not very solid
 
@@ -66,12 +67,12 @@ class TestMultievals(SummerTestCase):
         self.s.readline("@balls 10 @dogs 3")
         self.ensure_input("<@balls+@dogs = 13>")
 
-    #def test_refs_within_line(self):
-    #   self.s.readline("@foo 10 @bar <@foo*3>")
-    #   self.ensure_input("<@bar = 30>")
+    def test_refs_within_line(self):
+      self.s.readline("@foo 10 @bar <@foo*3>")
+      self.ensure_input("<@bar = 30>")
 
-    #def test_sums_within_line(self):
-    #    self.ensure_input("10 20 30 40 <@sum = 100>")
+    def test_sums_within_line(self):
+       self.ensure_input("10 20 30 40 <@sum = 100>")
 
 if __name__ == '__main__':
     unittest.main()

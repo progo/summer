@@ -1,9 +1,7 @@
 TODO
 
 
-- Make sure you can define more than one variable in a line.
-- Multiple evals and definitions in one line
-
+- idea: sums wouldn't accumulate by default, but prefix with + to acc.
 
 NOT GONNA DO
 
