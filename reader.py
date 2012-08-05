@@ -3,12 +3,18 @@ The reader class Summer is the powerhouse to all of this.
 """
 
 import re
+from collections import namedtuple
 
 from eval_expr import eval_expr
-import nums
 
+# character to mark a line as a comment.
 COMMENTCHAR = ';'
+
+# string to mark a line as not to be accumulated towards sums.
 DONT_ACC = '--'
+
+Number = namedtuple("Number", "val type")
+
 
 class Summer():
 
@@ -67,6 +73,43 @@ class Summer():
         else:
             return "<{0} = {1:g}>".format(query, ans)
 
+    def __analyze(self, s):
+        """Parse the given string and return a list of Numbers."""
+
+        # the regex to match all numbers
+        NUMREGEX = r'-?\d+\.?\d*(?:[Ee][-+]?\d+)?'
+
+        # Collect numbers with a hairy regex.
+        evaled_calcs = re.findall(
+                # is there a variable defined?
+                r'(?P<variable>@[a-zA-Z0-9_]+)?\s*' +
+                # evaluation results
+                r'(?:<.+?= (?P<exprval>' + NUMREGEX + r')>' +
+                # match free standing numbers
+                r'|(?P<numval>' + NUMREGEX + r')\b)' +
+                # with the possible type
+                r'\s*(?P<type>[a-zA-Z_]+)?', s)
+        nums = []
+        variables = {}
+        for n in evaled_calcs:
+            variablename = n[0]
+            exprval = n[1]
+            numval = n[2]
+            typestr = n[3]
+            val = numval if numval else exprval
+            # here's the key:
+            #if exprval: then run calculate with it, use the summer.VARS+variables
+            #together for varspace. However, probs lie ahead: should this be
+            #included in Summer or vice versa...
+            #probably move this functionality in Summer 'cause we need the coms and
+            #vars etc.
+            try:
+                nums.append(Number(val=float(val), type=typestr))
+                if variablename: variables[variablename] = val
+            except ValueError:
+                pass
+        return (nums, variables)
+
     def does_the_line_accumulate(self, line):
         """Determine if the given line's values should accumulate towards
         sums."""
@@ -77,7 +120,7 @@ class Summer():
         """Read line of input and return the possible modified line back."""
         line = line.rstrip('\n')
 
-        # when commentary, just return it back
+        # when commentary, don't touch it!
         if line.lstrip().startswith(COMMENTCHAR):
             return line
 
@@ -85,7 +128,7 @@ class Summer():
         line = re.sub(r'<(.*?)>', self.calculate, line)
 
         # Get potential numerical info from the line
-        nums_, vars_ = nums.grab_numbers_and_vars(line)
+        nums_, vars_ = self.__analyze(line)
         if not self.does_the_line_accumulate(line):
             self.NUMS.extend(nums_)
         self.VARS.update(vars_)

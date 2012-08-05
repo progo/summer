@@ -67,34 +67,11 @@ class TestMultievals(SummerTestCase):
         self.ensure_input("<@balls+@dogs = 13>")
 
     #def test_refs_within_line(self):
-    #    self.s.readline("@foo 10 @bar <@foo*3>")
-    #    self.ensure_input("<@bar = 30>")
+    #   self.s.readline("@foo 10 @bar <@foo*3>")
+    #   self.ensure_input("<@bar = 30>")
 
-
-
-# some helpful tests for 'nums'. Should be removed after we're finished because
-# they're not black box tests.
-from nums import Number, grab_numbers
-class TestNums(unittest.TestCase):
-    def test_number_grabbing(self):
-        self.assertEqual(grab_numbers("i've got 99 problems"),
-                [Number(val=99.0, type='problems')])
-        self.assertEqual(grab_numbers("1 2 3"),
-                [Number(val=1.0, type=''),
-                 Number(val=2.0, type=''),
-                 Number(val=3.0, type='')])
-
-    def test_type_grabbing(self):
-        self.assertEqual(grab_numbers("12 op"),
-                [Number(val=12.0, type='op')])
-        self.assertEqual(grab_numbers("<12*4 = 48> eur"),
-                [Number(val=48.0, type='eur')])
-
-    def test_floats(self):
-        """floating point numbers are tough."""
-        self.assertEqual(grab_numbers("1.5"),
-                [Number(val=1.5, type='')])
-        self.assertEqual(len(grab_numbers("1.4 2.4 0.3 4")), 4)
+    #def test_sums_within_line(self):
+    #    self.ensure_input("10 20 30 40 <@sum = 100>")
 
 if __name__ == '__main__':
     unittest.main()
