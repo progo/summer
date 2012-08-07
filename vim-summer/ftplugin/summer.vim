@@ -1,4 +1,4 @@
-" SumItUp for vim
+" Summer filetype plugin for vim
 setlocal syntax=summer
 
 if !exists("g:summer_parser")
@@ -53,3 +53,7 @@ endf
 nmap <buffer> <LocalLeader>e :call SIUNaiveUpdate()<CR>
 nmap <buffer> <LocalLeader>c :call SIUToggleComment()<CR>
 nmap <buffer> <LocalLeader>a :call SIUToggleACC()<CR>
+
+" number inc/dec operators to update formulas automatically.
+nnoremap <buffer> <C-a> <C-a>:call SIUNaiveUpdate()<CR>
+nnoremap <buffer> <C-x> <C-x>:call SIUNaiveUpdate()<CR>
