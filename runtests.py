@@ -118,5 +118,10 @@ class TestMultievals(SummerTestCase):
     def test_sums_within_line(self):
        self.ensure_input("10 20 30 40 <@sum = 100>")
 
+    def test_identical_exprs(self):
+        """is this a bug or some sick misbehavior on user's behalf..."""
+        self.s.readline("@a <12/3> @b <@sum> @c <@sum>")
+        self.ensure_input("<@a = 4> <@b = 4> <@c = 8>")
+
 if __name__ == '__main__':
     unittest.main()
