@@ -96,7 +96,9 @@ class Summer():
         NUMREGEX = r'-?\d+\.?\d*(?:[Ee][-+]?\d+)?'
 
         # Collect numbers and expressions with a hairy regex.
-        evaled_calcs = re.findall(
+        # We run through iterator and yet realizing the results right away
+        # because we can ditch tuples and magic numbers that way. 
+        evaled_calcs = [x for x in re.finditer(
                 # is there a variable defined?
                 r'(?P<variable>@[a-zA-Z0-9_]+)?\s*' +
                 # evaluation results
@@ -104,26 +106,18 @@ class Summer():
                 # match free standing numbers
                 r'|(?P<numval>' + NUMREGEX + r')\b)' +
                 # with the possible type
-                r'\s*(?P<type>[a-zA-Z_]+)?', s)
+                r'\s*(?P<type>[a-zA-Z_]+)?', s)]
         for n in evaled_calcs:
-            variablename = n[0]
-            expr = n[1]
-            exprval = n[2]
-            numval = n[3]
-            typestr = n[4]
-            val = numval if numval else exprval
-            if expr:
-                # TODO this here contains a nasty source of bugs. Consider a
-                # line that contains two identical expressions. We can
-                # circumvent this with a placeholder hack or doing this
-                # properly with a parser.
-                evaled_result = self.calculate(expr[1:-1])
-                s = s.replace(expr, evaled_result)
+            n = n.groupdict("")
+            val = n['numval'] if n['numval'] else n['exprval']
+            if n['expr']:
+                evaled_result = self.calculate(n['expr'][1:-1])
+                s = s.replace(n['expr'], evaled_result)
                 val = self.extract_rhs(evaled_result)
             try:
                 if do_acc:
-                    self.NUMS.append(Number(val=float(val), type=typestr))
-                if variablename: self.VARS[variablename] = val
+                    self.NUMS.append(Number(val=float(val), type=n['type']))
+                if n["variable"]: self.VARS[n["variable"]] = val
             except ValueError:
                 pass
         return s
