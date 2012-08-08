@@ -109,7 +109,7 @@ class Summer():
                 r'\s*(?P<type>[a-zA-Z_]+)?', s)]
         for n in evaled_calcs:
             n = n.groupdict("")
-            val = n['numval'] if n['numval'] else n['exprval']
+            val = n['numval'] or n['exprval']
             if n['expr']:
                 evaled_result = self.calculate(n['expr'][1:-1])
                 s = s.replace(n['expr'], evaled_result)
