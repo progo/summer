@@ -1,9 +1,16 @@
 TODO
 
+- Better error handling: current situation is not very nice on the user. This
+  probably results in writing own expression parser that understands variables
+  and commands on its own. No more ugly regex-substitutions.
+- Caching the results or similar performant functionality. Re-evaling the whole
+  file on every single small change can be taxing. Could we store cache on temp
+  files to keep this standalone. Vim-Python sure would be another option, but I
+  don't really like the sound of it. 
+- IDEA: sums wouldn't accumulate by default, but prefix with + to acc.
+- IDEA: export CSV in some meaningful manner?
 
-- idea: sums wouldn't accumulate by default, but prefix with + to acc.
-
-NOT GONNA DO
+NOT GONNA DO (rendered pointless)
 
 - column sum to answer some issues:
     - when collecting numbers save the column #
