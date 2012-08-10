@@ -123,5 +123,33 @@ class TestMultievals(SummerTestCase):
         self.s.readline("@a <12/3> @b <@sum> @c <@sum>")
         self.ensure_input("<@a = 4> <@b = 4> <@c = 8>")
 
+class TestAnsFunctionality(SummerTestCase):
+    """test recalling the last result in new expressions."""
+
+    def test_single(self):
+        self.s.readline("<123*10>")
+        self.s.readline("<_ + 70>")
+        self.ensure_input("<_ = 1300>")
+        self.ensure_input("<_+_-2*_ = 0>")
+
+    def test_corner_cases(self):
+        self.s.readline("<100/2>")
+        self.ensure_input("<_ = 50>")
+        self.ensure_input("<_ = 50>")
+        self.s.readline("@foo 30 pizzas")
+        self.ensure_input("<_ = 50>")
+        self.s.readline("<_ * 3>")
+        self.ensure_input("<_ = 150>")
+
+    def test_vars(self):
+        self.s.readline("@var <100-50 = 50>")
+        self.ensure_input("@newv <@var-2*_ = -50>")
+        self.ensure_input("<@newv-_ = 0>")
+
+    def test_synon(self):
+        self.s.readline("<120 - 20>")
+        self.ensure_input("<@ans - _ = 0>")
+
+
 if __name__ == '__main__':
     unittest.main()

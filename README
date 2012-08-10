@@ -30,6 +30,10 @@ So, what can you do?
         4 balls
         6 towels
         <@sum:balls = 4>
+- Use automatically set variables `_` or `@ans` to recall last evaluated
+  result like this:
+        <100+40 = 140> eur
+        <_ - 22 = 118>
 
 INSTALLATION: Copy the stuff from `vim-summer/` to your `~/.vim/`. Pathogen is
 recommended! Set the path to your copy of 'summer.py' in `.vimrc` in the

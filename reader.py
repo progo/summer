@@ -74,6 +74,10 @@ class Summer():
         # eval
         ans = eval_expr(processed)
 
+        # store this ans.
+        self.VARS["_"] = str(ans)
+        self.VARS["@ans"] = str(ans)
+
         if query == str(ans):
             return "<{0:g}>".format(ans)
         else:
