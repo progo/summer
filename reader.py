@@ -63,7 +63,6 @@ class Summer():
     def calculate(self, query):
         """read and eval an expression in string. Return modified string back
         with the result."""
-        #query = match.group(1)
 
         # remove stuff from RHS of =
         query = re.sub(r' =.*$', '', query)
