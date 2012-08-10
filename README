@@ -45,6 +45,9 @@ USAGE: Three key bindings are provided:
     <Localleader>c   to toggle the current line commented or not.
     <Localleader>a   to toggle the accumulate mark on the current line.
 
+    The usual Vim normal mode maps <C-a> and <C-x> have been remapped to
+    instantly refresh the buffer after incrementing or decrementing a number.
+
     I'm not sure what the default for <Localleader> is, so you can make sure
     it's something sensible by setting up maplocalleader = ',' in your .vimrc:
 
