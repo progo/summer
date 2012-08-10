@@ -14,14 +14,14 @@ only. Hence, Summer.
 So, what can you do?
 
 - Just throw in numbers like this: 200
-- Make calculations inside angle brackets: <200/2 = 100.0>
+- Make calculations inside angle brackets: <200/2 = 100>
 - Define variables the following manner:
         @var 100
         @foo <200+30 = 230>
 - Use those variables in further calculations:
         <@var + @foo = 330>
 - Use the predefined variables well:
-        <@sum = 960.0>
+        <@sum = 960>
 - Comment lines with ; so that the variables don't define.
 - Mark lines with -- (as the first or the last thing) to keep numbers from
   accumulating in @sum.
