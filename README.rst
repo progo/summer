@@ -79,7 +79,7 @@ TIPS
 
 For bash and zsh::
 
-    alias Calc='vim `tempfile -pcalc- -s.sum`'
+    alias Summer='vim -c ":set filetype=summer"'
 
 BUGS AND ISSUES
 ---------------
