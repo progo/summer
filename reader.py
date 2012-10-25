@@ -57,7 +57,7 @@ class Summer():
     def substitute_variables(self, string):
         """substitute @variables with their numeric counterparts."""
         for var in self.VARS.keys():
-            string = string.replace(var, self.VARS[var])
+            string = re.sub(var + r'\b', self.VARS[var], string)
         return string
 
     def calculate(self, query):

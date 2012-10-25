@@ -73,6 +73,13 @@ class TestVariables(SummerTestCase):
         self.ensure_input("<@car+@tires = 5200>")
         self.ensure_input("<@tkt = 2.5e+10>") #not very solid
 
+    def test_badly_named_variables(self):
+        """should cope with names inside other names"""
+        self.s.readline("@abc 123")
+        self.s.readline("@cde 234")
+        self.s.readline("@abcde 500")
+        self.ensure_input("<@abcde = 500>")
+
     def test_updated_variable(self):
         """should set variable with new results."""
         self.s.readline("@new <100+10 = 105>")
